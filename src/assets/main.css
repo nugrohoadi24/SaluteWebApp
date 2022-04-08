@@ -1,0 +1,599 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #535353;
+    background-color: #bdbab5 !important;
+    text-align: left;
+    overflow-y: scroll;
+}
+
+a {
+    color: #535353;
+}
+
+a:hover {
+    color: #535353;
+    text-decoration: none;
+}
+
+
+.text-big {
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.text-heading {
+    margin-bottom: 0.3rem;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.text-subheading {
+    margin-bottom: 0.3rem;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.text-description {
+    margin-bottom: 0.2rem;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.text-note {
+    margin-bottom: 0.1rem;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.text-status {
+    margin-bottom: 0.1rem;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.color-blue {
+    background-color: #3157A4 !important;
+}
+
+.text-color-blue {
+    color: #3157A4 !important;
+}
+
+.text-color-blue {
+    color: #3157A4 !important;
+}
+
+.text-color-grey {
+    color: #535353 !important;
+}
+
+.text-color-green {
+    color: #46AC34 !important;
+}
+
+.space-top {
+    margin-top: 4rem;
+}
+
+.space-bottom {
+    margin-bottom: 2rem;
+}
+
+.page-section {
+    padding: 4rem 0;
+    position: relative;
+}
+
+.fix-top {
+    margin-top: 4rem;
+}
+
+.card-list {
+    border-radius: 25px;
+    border: 1px solid #3157A4;
+}
+
+.card-list-nonaktif {
+    border-radius: 25px;
+    border: 1px solid #535353;
+}
+
+.space-bottom {
+    padding-bottom: 90px;
+}
+
+.w-32 {
+    width: 32%;
+}
+
+.salvus-logo {
+    text-align: center;
+    width: 100%;
+}
+
+.salvus-logo img {
+    width: 30%;
+}
+
+.horizontal-line {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #3157A4;
+}
+
+.horizontal-line-bold {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 3px solid #3157A4;
+}
+
+.border-input-bottom {
+    padding: 0;
+    border: 1px solid #fff;
+    border-bottom: 1px solid #3157A4;
+}
+
+.border-input-bottom:focus {
+    border-color: transparent;
+    border-bottom-color: #3157A4;
+    box-shadow: 0 0 0 0.2rem #fff;
+}
+
+.splash-screen {
+    display: flex;
+    align-items: center;
+    background: #3157A4;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.splash-screen img {
+    margin: auto;
+    width: 50%;
+}
+
+.btn-blue {
+    display: block;
+    max-width: 300px;
+    font-weight: 600;
+    border-radius: 40px;
+    background: #3157A4!important;
+    color: #fff!important;
+    margin: 0 auto;
+    padding: 10px;
+    text-decoration: none;
+}
+
+/* Like Mobile */
+.page,
+.width-control {
+  max-width: 500px;
+}
+
+.page {
+  height: 100%;
+  margin: auto;
+  background-color: #fff;
+}
+
+.canvas {
+  font-family: 'Quicksand', sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+  
+.header img {
+    width: 20%;
+}
+
+/* Banner */
+.loyalty-points {
+    background-color: #D8D8D8;
+}
+
+.text-loyalty {
+    padding: 5px;
+    background-color: #D8D8D8;
+}
+
+.text-loyalty .text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.amount-loyalty {
+    padding: 5px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background-color: #3157A4;
+}
+
+.amount-loyalty .amount {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.redeem-box {
+    color: #fff;
+    border-radius: 20px;
+    padding: 3px 10px;
+    background-color: #46AC34;
+}
+
+/* Home Menu */
+.home-menu-section {
+    padding: 40px 0 0 0;
+    position: relative;
+}
+
+.home-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.home-menu-list {
+    display: block;
+    padding: 0;
+}
+
+.home-menu img{
+    width: 35%;
+    margin-bottom: 3px;
+}
+
+.home-menu-text {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* My Account */
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    display: block;
+}
+
+.avatar img {
+    width: 100%;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.overlay {
+    border: 2px solid #3157A4;
+    padding: 2px;
+}
+
+.owl-carousel .owl-item {
+    padding: 10px;
+}
+
+.template-card {
+    width: 75% !important;
+    margin: 0 auto;
+    box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
+    border: 1px rgb(0 0 0 / 20%);
+}
+
+.card-text {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 30%;
+    left: 17%;
+    width: 66%;
+    font-size: 12px;
+}
+
+.card-note-text {
+    font-size: 10px;
+}
+
+.btn-edit {
+    display: block;
+    max-width: 300px;
+    font-weight: 800;
+    border-radius: 40px;
+    background: #46AC34!important;
+    color: #fff!important;
+    margin: 0 auto;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.btn-edit img {
+    width: 30px;
+}
+
+.icon img {
+    width: 35px;
+    margin-bottom: 3px;
+}
+
+.icon-in-button img {
+    width: 25px;
+}
+
+/* Benefit */
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+    padding: 10px;
+}
+
+.card-benefit {
+    margin-bottom: 1rem;
+    border: none;
+}
+
+.card-benefit-header {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #fff;
+    background: #3157A4;
+}
+
+.card-benefit-body {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #3157A4;
+    background: rgb(49 87 164 / 20%);
+}
+
+
+/* Rekanan */
+.rekanan-more {
+    display: flex;
+}
+
+.rekanan-search {
+    color: #3157A4;
+    border-radius: 20px;
+    border: 1px solid #3157A4;
+}
+
+.search-filter {
+    background-color: #fff;
+    border-radius: 20px !important;
+    border: none;
+}
+
+.search-filter:focus {
+    border: none;
+}
+
+.search-input-filter {
+    border-radius: 20px !important;
+    border: none;
+}
+
+.maps {
+    width: 100%;
+}
+
+.maps img {
+    width: 100%;
+}
+
+.route-maps {
+    display: flex;
+    position: absolute;
+    width: calc(100% - 25px);
+    top: 55%;
+}
+
+.btn-maps {
+    margin: auto;
+    border-radius: 20px;
+    border: 1px solid #46AC34;
+    color: #46AC34;
+    background-color: #fff;
+}
+
+.btn-maps:hover {
+    border: 1px solid #46AC34;
+    color: #46AC34;
+}
+
+.search-provider {
+    background-color: #3157a4;
+    padding: 1.5rem;
+}
+
+.searchbar {
+    margin-bottom: auto;
+    margin-top: auto;
+    border-radius: 10px;
+    padding: 4px;
+    display: flex;
+}
+
+/* KLAIM */
+.border-dashed {
+    border: 1px dashed #3157A4;
+}
+
+.dropzone-icon{
+    width: 50px !important ;
+}
+
+.doc-thumbnail img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* FAQ */
+.faq {
+    display: flex;
+    align-items: center;
+}
+
+.faq img {
+    width: 35px;
+}
+
+.red-dot {
+    position: absolute;
+    top: 8%;
+    right: 3%;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: #f00000;
+}
+
+.btn-green {
+    width: 100%;
+    margin: auto;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #46AC34;
+    color: #fff;
+    background: #46AC34;
+    text-decoration: none;
+}
+
+.btn-green:hover {
+    color: #fff !important;
+}
+
+.btn-outline-green {
+    width: 100%;
+    margin: auto;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #46AC34;
+    color: #46AC34;
+    background-color: #fff;
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgb(0 0 0 / 12%);
+    z-index: 100;
+}
+
+.tab-list {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #3157A4;
+}
+.tab-menu {
+    display: block;
+    padding: 0;
+}
+
+.icon-footer img{
+    width: 25px;
+    margin-bottom: 3px;
+}
+
+.tab-menu span {
+    font-size: 14px;
+    line-height: 1.5rem;
+    color: #fff;
+}
+
+/* Owl Carousel */
+.owl-carousel>.owl-nav {
+    position: absolute;
+    bottom: 40%;
+    width: 100%;
+}
+.owl-carousel>.owl-nav>.owl-next {
+    float: right;
+    margin-right: 4% !important;
+}
+.owl-carousel>.owl-nav>.owl-prev {
+    float: left;
+    margin-left: 4% !important;
+}
+
+/* MEDIA QUERY */
+@media only screen and (max-width: 410px) {
+    .card-text {
+        font-size: 8px;
+    }
+
+    .card-note-text {
+        font-size: 8px;
+    }
+    
+    .text-mobile {
+        font-size: 14px;
+    }
+
+    .text-status {
+        font-size: 12px;
+    }
+}
+@media only screen and (min-width: 411px) and (max-width: 767px) {
+    .card-text {
+        font-size: 10px;
+    }
+
+    .card-note-text {
+        font-size: 9px;
+    }
+
+    .text-mobile {
+        font-size: 14px;
+    }
+    
+    .text-status {
+        font-size: 12px;
+    }
+}
