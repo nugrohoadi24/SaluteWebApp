@@ -6,7 +6,7 @@
             <div class="page-section">
                 <div class="container">
                     <div class="text-description text-center">
-                        Silahkan pilih sertifikat yang ingin di klaim
+                        Silahkan pilih sertifikat yang ingin diklaim
                     </div>
                     <div v-for="item in myBenefit" :key="item._id">
                         <router-link :to="type == 'cashless' ? '/form-cashless?id=' + item._id : '/form-reimburse?id=' + item._id" class="card card-list text-color-blue my-3" v-if="item.status_polis == 'ACTIVE'">

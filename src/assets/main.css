@@ -144,15 +144,15 @@ a:hover {
 }
 
 .border-input-bottom {
-    padding: 0;
-    border: 1px solid #fff;
-    border-bottom: 1px solid #3157A4;
+    padding: 0 !important;
+    border: 1px solid #fff !important;
+    border-bottom: 1px solid #3157A4 !important;
 }
 
 .border-input-bottom:focus {
-    border-color: transparent;
-    border-bottom-color: #3157A4;
-    box-shadow: 0 0 0 0.2rem #fff;
+    border-color: transparent !important;
+    border-bottom-color: #3157A4 !important;
+    box-shadow: 0 0 0 0.2rem #fff !important;
 }
 
 .splash-screen {
