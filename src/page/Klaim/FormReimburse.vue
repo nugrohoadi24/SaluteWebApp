@@ -30,7 +30,7 @@
                     <input v-model="myAccount.userId" type="text" class="form-control border-input-bottom" placeholder="Masukkan ID Peserta" required>
                 </div>
                 <div class="text-color-blue mb-2" v-if="idRekanan !== undefined && idRekanan !== ''">
-                    <span>Pilih provider kesehatan yang ingin dikunjungi</span>    
+                    <span>Pilih provider kesehatan yang dikunjungi</span>    
                     <router-link :to="'/select-provider?id='+idBenefit+'&t=r'" >
                         <div class="form-control text-success text-center">
                             {{ namaRekanan }}
@@ -38,7 +38,7 @@
                     </router-link>
                 </div>
                 <div class="text-color-blue mb-2" v-else>
-                    <span>Pilih provider kesehatan yang ingin dikunjungi</span>    
+                    <span>Pilih provider kesehatan yang dikunjungi</span>    
                     <router-link :to="'/select-provider?id='+idBenefit+'&t=r'" >
                         <div class="form-control text-danger text-center">
                             -- Pilih Provider --
@@ -95,7 +95,7 @@
                     </div>
                     <div class="text-color-blue mb-2">
                         <span>Kronologis kejadian kecelakaan</span>
-                        <textarea v-model="kronologi_kecelakaan" rows="3" class="form-control" placeholder="Masukkan kronologi kejadian kecelakaan" :required="validateKecelakaan"></textarea>
+                        <textarea v-model="kronologi_kecelakaan" rows="3" class="form-control" placeholder="Ceritakan kronologi kejadian kecelakaan" :required="validateKecelakaan"></textarea>
                     </div>
                     <div class="text-color-blue mb-2">
                         <span>Penyebab Terjadinya Kecelakaan</span>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="text-color-blue mb-2">
                         <span>Kronologi timbulnya keluhan</span>
-                        <textarea v-model="kronologi_sakit" rows="3" class="form-control" placeholder="kronologi timbulnya keluhan" :required="validateSakit"></textarea>
+                        <textarea v-model="kronologi_sakit" rows="3" class="form-control" placeholder="Ceritakan kronologi timbulnya keluhan" :required="validateSakit"></textarea>
                     </div>
                 </div>
 
