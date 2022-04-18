@@ -11,7 +11,7 @@
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Nama Peserta sesuai KTP</span>
-                    <input v-model="myAccount.nama" type="text" class="form-control border-input-bottom" placeholder="Masukkan Nama sesuai KTP" required>
+                    <input v-model="myBenefit.nama_tertanggung" type="text" class="form-control border-input-bottom" placeholder="Masukkan Nama sesuai KTP" required disabled>
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Nomor HP Peserta</span>
@@ -21,13 +21,17 @@
                     <span>Email aktif Peserta</span>
                     <input v-model="myAccount.email" type="email" class="form-control border-input-bottom" placeholder="Masukkan alamat email" required>
                 </div>
-                <div class="text-color-blue mb-2">
+                <div class="text-color-blue mb-2" v-if="myBenefit.nik_tertanggung !== undefined && myBenefit.nik_tertanggung !== null">
                     <span>NIK Peserta</span>
-                    <input v-model="myAccount.nik" minlength="16" maxlength="16" type="number" class="form-control border-input-bottom" placeholder="Masukkan NIK" required>
+                    <input v-model="myBenefit.nik_tertanggung" minlength="16" maxlength="16" type="number" class="form-control border-input-bottom" placeholder="Masukkan NIK" required disabled>
+                </div>
+                <div class="text-color-blue mb-2" v-else>
+                    <span>NIK Peserta</span>
+                    <input v-model="myAccount.nik" minlength="16" maxlength="16" type="number" class="form-control border-input-bottom" placeholder="Masukkan NIK" required disabled>
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>ID Peserta</span>
-                    <input v-model="myAccount.userId" type="text" class="form-control border-input-bottom" placeholder="Masukkan ID Peserta" required>
+                    <input v-model="myAccount.userId" type="text" class="form-control border-input-bottom" placeholder="Masukkan ID Peserta" required disabled>
                 </div>
                 <div class="text-color-blue mb-2" v-if="idRekanan !== undefined && idRekanan !== ''">
                     <span>Pilih provider kesehatan yang dikunjungi</span>    
@@ -115,6 +119,7 @@
                             class="mt-1"
                             placeholder="Tanggal mulai timbulnya keluhan"
                             locale="en"
+                            :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit' }"
                             :max="maxDate"
                             :required="validateSakit"
                         />
@@ -237,6 +242,7 @@ export default {
             idRekanan:'',
             namaRekanan:'',
             myAccount:{},
+            myBenefit:{},
             radioAlasan:'',
             sim_aktif:'',
             lokasi_kecelakaan:'',
@@ -275,6 +281,14 @@ export default {
         }
     },
     async created() {
+        let getId = this.$route.query.id;
+
+        if(getId !== undefined){
+            this.idBenefit = this.$route.query.id;
+        } else {
+            this.idBenefit = this.$route.query._id;
+        }
+
         let defaultAccount = {
             _id:'',
             nama:'',
@@ -285,9 +299,22 @@ export default {
             address:'',
             policy:[]
         }
-        let dataAccount = await this.$apiController('get', '/user_detail').catch(err=>console.log(err));
+        let [ 
+            dataAccount,
+            dataBenefit
+        ] = await Promise.all([
+            this.$apiController('get', '/user_detail').catch(err=>console.log(err)),
+            this.$apiController('get', `/policy/list`).catch(err=>console.log(err)),
+        ]).catch(err=>console.log(err));
         
         this.myAccount = dataAccount !== undefined && dataAccount.is_ok == true ? dataAccount.data : defaultAccount ;
+        var findBenefit = dataBenefit !== undefined && dataBenefit.is_ok == true ? dataBenefit.data : [] ;
+
+        findBenefit.forEach(item => {
+            if(item._id == this.idBenefit) {
+                this.myBenefit = item
+            }
+        })    
     },
     mounted(){
         let getId = this.$route.query.id;
@@ -336,7 +363,7 @@ export default {
             }
         },
         isValidNamaPengaju(){
-            if(this.myAccount.nama !== undefined && this.myAccount.nama !== ''){
+            if(this.myBenefit.nama_tertanggung !== undefined && this.myBenefit.nama_tertanggung !== ''){
                 if(this.radioTertanggung == 'WALI') {
                     if(this.nama_pengaju == this.nama_wali){
                         return this.validateNamaPengaju = true
@@ -346,7 +373,7 @@ export default {
                         return this.validateNamaPengaju = false
                     }
                 } else {
-                    if(this.myAccount.nama == this.nama_pengaju) {
+                    if(this.myBenefit.nama_tertanggung == this.nama_pengaju) {
                         return this.validateNamaPengaju = true
                     } else {
                         this.messageError = 'Nama pengaju dengan nama sesuai KTP harus sama!'
@@ -377,10 +404,10 @@ export default {
 
                 formData.append('form_type', '1')
                 formData.append('form_certificate_no', this.idBenefit)
-                formData.append('form_participant_name', this.myAccount.nama)
+                formData.append('form_participant_name', this.myBenefit.nama_tertanggung)
                 formData.append('form_participant_phone_number', this.myAccount.phone)
                 formData.append('form_participant_email', this.myAccount.email)
-                formData.append('form_identity_card_no', this.myAccount.nik)
+                formData.append('form_identity_card_no', this.myBenefit.nik_tertanggung)
                 formData.append('form_participant_user_id', this.myAccount.userId)
                 formData.append('form_participant_hospital', this.idRekanan)
                 formData.append('form_participant_hospital_name', this.namaRekanan)
