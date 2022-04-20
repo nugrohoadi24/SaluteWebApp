@@ -229,23 +229,67 @@
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Foto KTP</span>
-                    <input type="file" name="ktp" id="ktp" @change="handleFotoKTP" class="form-control m-2" required>
+                    <input type="file" ref="ktp" name="ktp" id="ktp" @change="handleFotoKTP" class="form-control m-2" multiple="false" required>
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Foto Resume Medis</span>
-                    <input type="file" name="resume_medis" id="resume_medis" @change="resumeMedis" class="form-control m-2" required>
+                    <div class="d-flex">
+                        <input type="file" name="resume_medis" id="resume_medis" @change="resumeMedis" class="form-control m-2" multiple="false" required>
+                        <b-button v-b-toggle.resume-2.resume-3 class="btn-add">
+                            <i class="fa fa-plus"></i>
+                        </b-button>
+                    </div>
+                    <b-collapse id="resume-2" class="mt-2">
+                        <input type="file" name="resume_medis2" id="resume_medis2" @change="resumeMedis2" class="form-control m-2" multiple="false">
+                    </b-collapse>
+                    <b-collapse id="resume-3" class="mt-2">
+                        <input type="file" name="resume_medis3" id="resume_medis3" @change="resumeMedis3" class="form-control m-2" multiple="false">
+                    </b-collapse>
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Foto Kwitansi Asli Biaya Pengobatan (Jika Ada)</span>
-                    <input type="file" name="kwitansi_asli" id="kwitansi_asli" @change="kwitansiAsliPengobatan" class="form-control m-2" >
+                    <div class="d-flex">
+                        <input type="file" name="kwitansi_asli" id="kwitansi_asli" @change="kwitansiAsliPengobatan" class="form-control m-2" multiple="false">
+                        <b-button v-b-toggle.kwitasi-2.kwitasi-3 class="btn-add">
+                            <i class="fa fa-plus"></i>
+                        </b-button>
+                    </div>
+                    <b-collapse id="kwitasi-2" class="mt-2">
+                        <input type="file" name="kwitansi_asli2" id="kwitansi_asli2" @change="kwitansiAsliPengobatan2" class="form-control m-2" multiple="false">
+                    </b-collapse>
+                    <b-collapse id="kwitasi-3" class="mt-2">
+                        <input type="file" name="kwitansi_asli3" id="kwitansi_asli3" @change="kwitansiAsliPengobatan3" class="form-control m-2" multiple="false">
+                    </b-collapse>
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Foto Kwitansi Asli Biaya Penunjang Medis</span>
-                    <input type="file" name="kwitansi_penunjang" id="kwitansi_penunjang" @change="kwitansiAsliPenunjang" class="form-control m-2" required>
+                    <div class="d-flex">
+                        <input type="file" name="kwitansi_penunjang" id="kwitansi_penunjang" @change="kwitansiAsliPenunjang" class="form-control m-2" multiple="false" required>
+                        <b-button v-b-toggle.penunjang-2.penunjang-3 class="btn-add">
+                            <i class="fa fa-plus"></i>
+                        </b-button>
+                    </div>
+                    <b-collapse id="penunjang-2" class="mt-2">
+                        <input type="file" name="kwitansi_penunjang2" id="kwitansi_penunjang2" @change="kwitansiAsliPenunjang2" class="form-control m-2" multiple="false">
+                    </b-collapse>
+                    <b-collapse id="penunjang-3" class="mt-2">
+                        <input type="file" name="kwitansi_penunjang3" id="kwitansi_penunjang3" @change="kwitansiAsliPenunjang3" class="form-control m-2" multiple="false">
+                    </b-collapse>
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Dokumen Lainnya</span>
-                    <input type="file" name="dokumen_lainnya" id="dokumen_lainnya" @change="dokumenLainnya" class="form-control m-2" required>
+                    <div class="d-flex">
+                        <input type="file" name="doc_lainnya" id="doc_lainnya" @change="dokumenLainnya" class="form-control m-2" multiple="true" required>
+                        <b-button v-b-toggle.lainnya-2.lainnya-3 class="btn-add">
+                            <i class="fa fa-plus"></i>
+                        </b-button>
+                    </div>
+                    <b-collapse id="lainnya-2" class="mt-2">
+                        <input type="file" name="doc_lainnya2" id="doc_lainnya2" @change="dokumenLainnya2" class="form-control m-2" multiple="false">
+                    </b-collapse>
+                    <b-collapse id="lainnya-3" class="mt-2">
+                        <input type="file" name="doc_lainnya3" id="doc_lainnya3" @change="dokumenLainnya3" class="form-control m-2" multiple="false">
+                    </b-collapse>
                 </div>
 
                 <div class="text-color-blue mb-2">
@@ -363,9 +407,17 @@ export default {
 
             ktp:null,
             resume_medis:null,
+            resume_medis2:null,
+            resume_medis3:null,
             kwitansi_asli:null,
+            kwitansi_asli2:null,
+            kwitansi_asli3:null,
             kwitansi_penunjang:null,
-            dokumen_lainnya:null,
+            kwitansi_penunjang2:null,
+            kwitansi_penunjang3:null,
+            doc_lainnya:null,
+            doc_lainnya2:null,
+            doc_lainnya3:null,
 
             validateKecelakaan:true,
             validateSakit:true,
@@ -378,6 +430,11 @@ export default {
             messageError:'',
             
             claim_ticket:'',
+            validateKTPSize:true,
+            validateResumeMedisSize:true,
+            validateKwitansiAsliSize:true,
+            validateKwitansiPenunjangSize:true,
+            validateDokumenLainSize:true,
             validateProvider:false,
             validateKecelakaan:true,
             validateSakit:true,
@@ -486,7 +543,7 @@ export default {
             }
         },
         isValidNamaPengaju(){
-            if(this.myAccount.nama !== undefined && this.myAccount.nama !== ''){
+            if(this.myBenefit.nama_tertanggung !== undefined && this.myBenefit.nama_tertanggung !== ''){
                 if(this.radioTertanggung == 'WALI') {
                     if(this.nama_pengaju == this.nama_wali){
                         return this.validateNamaPengaju = true
@@ -496,7 +553,7 @@ export default {
                         return this.validateNamaPengaju = false
                     }
                 } else {
-                    if(this.myAccount.nama == this.nama_pengaju) {
+                    if(this.myBenefit.nama_tertanggung == this.nama_pengaju) {
                         return this.validateNamaPengaju = true
                     } else {
                         this.messageError = 'Nama pengaju dengan nama sesuai KTP harus sama!'
@@ -510,15 +567,65 @@ export default {
                 return this.validateNamaPengaju = false
             }
         },
+        // isValidKTPSize(){
+        //     if(this.ktp.size > 1024 * 1024) {
+        //         alert('Ukuran file KTP terlalu besar, maksimal 1MB)');
+        //         return this.validateKTPSize = false;
+        //     } else {
+        //         return this.validateKTPSize = true;
+        //     }
+        // },
+        // isValidResumeMedisSize(){
+        //     if(this.resume_medis.size > 1024 * 1024) {
+        //         alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB)');
+        //         return this.validateResumeMedisSize = false;
+        //     } else {
+        //         return this.validateResumeMedisSize = true;
+        //     }
+        // },
+        // isValidKwitansiAsliSize(){
+        //     if(this.kwitansi_asli.size > 1024 * 1024) {
+        //         alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB)');
+        //         return this.validateKwitansiAsliSize = false;
+        //     } else {
+        //         return this.validateKwitansiAsliSize = true;
+        //     }
+        // },
+        // isValidKwitansiPenunjangSize(){
+        //     if(this.kwitansi_penunjang.size > 1024 * 1024) {
+        //         alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
+        //         return this.validateKwitansiPenunjangSize = false;
+        //     } else {
+        //         return this.validateKwitansiPenunjangSize = true;
+        //     }
+        // },
+        // isValidDokumenLainSize(){
+        //     if(this.doc_lainnya.size > 1024 * 1024) {
+        //         alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
+        //         return this.validateDokumenLainSize = false;
+        //     } else {
+        //         return this.validateDokumenLainSize = true;
+        //     }
+        // },
         isValidAll(){
             this.isValidRekanan()
             this.isValidNamaPengaju()
             this.isValidDateTime()
+            // this.isValidKTPSize()
+            // this.isValidResumeMedisSize()
+            // this.isValidKwitansiAsliSize()
+            // this.isValidKwitansiPenunjangSize()
+            // this.isValidDokumenLainSize()
 
             return (
                 this.validateProvider &&
                 this.validateNamaPengaju &&
-                (this.validateDateKecelakaan || this.validateDateSakit)
+                (this.validateDateKecelakaan || this.validateDateSakit) 
+                // this.validateKTPSize &&
+                // this.validateResumeMedisSize &&
+                // this.validateKwitansiAsliSize &&
+                // this.validateKwitansiPenunjangSize &&
+                // this.validateDokumenLainSize
             )
         },
         async pageClick(page){
@@ -543,18 +650,107 @@ export default {
         },
         handleFotoKTP(e) {
             this.ktp = e.target.files[0]
+
+            if(this.ktp.size > 1024 * 1024) {
+                alert('Ukuran file KTP terlalu besar, maksimal 1MB)');
+                return;
+            }
         },
         resumeMedis(e) {
             this.resume_medis = e.target.files[0]
+
+            if(this.resume_medis.size > 1024 * 1024) {
+                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB)');
+                return;
+            }
+        },
+        resumeMedis2(e) {
+            this.resume_medis2 = e.target.files[0]
+
+            if(this.resume_medis2.size > 1024 * 1024) {
+                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB)');
+                return;
+            }
+        },
+        resumeMedis3(e) {
+            this.resume_medis3 = e.target.files[0]
+
+            if(this.resume_medis3.size > 1024 * 1024) {
+                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB)');
+                return;
+            }
         },
         kwitansiAsliPengobatan(e) {
             this.kwitansi_asli = e.target.files[0]
+
+            if(this.kwitansi_asli.size > 1024 * 1024) {
+                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB)');
+                return;
+            }
+        },
+        kwitansiAsliPengobatan2(e) {
+            this.kwitansi_asli2 = e.target.files[0]
+
+            if(this.kwitansi_asli2.size > 1024 * 1024) {
+                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB)');
+                return;
+            }
+        },
+        kwitansiAsliPengobatan3(e) {
+            this.kwitansi_asli3 = e.target.files[0]
+
+            if(this.kwitansi_asli3.size > 1024 * 1024) {
+                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB)');
+                return;
+            }
         },
         kwitansiAsliPenunjang(e) {
             this.kwitansi_penunjang = e.target.files[0]
+
+            if(this.kwitansi_penunjang.size > 1024 * 1024) {
+                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
+                return;
+            }
+        },
+        kwitansiAsliPenunjang2(e) {
+            this.kwitansi_penunjang2 = e.target.files[0]
+
+            if(this.kwitansi_penunjang2.size > 1024 * 1024) {
+                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
+                return;
+            }
+        },
+        kwitansiAsliPenunjang3(e) {
+            this.kwitansi_penunjang3 = e.target.files[0]
+
+            if(this.kwitansi_penunjang3.size > 1024 * 1024) {
+                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
+                return;
+            }
         },
         dokumenLainnya(e) {
-            this.dokumen_lainnya = e.target.files[0]
+            this.doc_lainnya = e.target.files[0]
+
+            if(this.doc_lainnya.size > 1024 * 1024) {
+                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB)');
+                return;
+            }
+        },
+        dokumenLainnya2(e) {
+            this.doc_lainnya2 = e.target.files[0]
+
+            if(this.doc_lainnya2.size > 1024 * 1024) {
+                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB)');
+                return;
+            }
+        },
+        dokumenLainnya3(e) {
+            this.doc_lainnya3 = e.target.files[0]
+
+            if(this.doc_lainnya3.size > 1024 * 1024) {
+                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB)');
+                return;
+            }
         },
         async onSave(){
             if(this.isValidAll()){
@@ -564,7 +760,7 @@ export default {
                     this.final_nama_bank = this.nama_bank
                 }
 
-                if(myBenefit.nik_tertanggung == undefined && myBenefit.nik_tertanggung == null){
+                if(this.myBenefit.nik_tertanggung == undefined && this.myBenefit.nik_tertanggung == null){
                     this.myBenefit.nik_tertanggung = this.myAccount.nik
                 }
 
@@ -605,9 +801,17 @@ export default {
                 formData.append('bank_acc_number', this.nomor_rekening)
                 formData.append('KTP', this.ktp)
                 formData.append('RESUME_MEDIS', this.resume_medis)
+                formData.append('RESUME_MEDIS', this.resume_medis2)
+                formData.append('RESUME_MEDIS', this.resume_medis3)
                 formData.append('RECEIPT_BIAYA_PENGOBATAN', this.kwitansi_asli)
+                formData.append('RECEIPT_BIAYA_PENGOBATAN', this.kwitansi_asli2)
+                formData.append('RECEIPT_BIAYA_PENGOBATAN', this.kwitansi_asli3)
                 formData.append('RECEIPT_BIAYA_PENUNJANG_MEDIS', this.kwitansi_penunjang)
-                formData.append('DOKUMEN_PENUNJANG_LAINNYA', this.dokumen_lainnya)
+                formData.append('RECEIPT_BIAYA_PENUNJANG_MEDIS', this.kwitansi_penunjang2)
+                formData.append('RECEIPT_BIAYA_PENUNJANG_MEDIS', this.kwitansi_penunjang3)
+                formData.append('DOKUMEN_PENUNJANG_LAINNYA', this.doc_lainnya)
+                formData.append('DOKUMEN_PENUNJANG_LAINNYA', this.doc_lainnya2)
+                formData.append('DOKUMEN_PENUNJANG_LAINNYA', this.doc_lainnya3)
                 console.log('valid save data')
                 this.showMessage = true
 

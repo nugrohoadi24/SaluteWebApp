@@ -117,6 +117,19 @@
                     <div class="text-color-blue">
                         Dokumen Terlampir
                     </div>
+                    <label class="mt-3">KTP</label>
+                    <vue-dropzone :useCustomSlot=true style="min-height:150px" 
+                        class="card border-dashed text-color-blue mt-2" 
+                        ref="dropzoneKTP" id="dropzoneKTP" 
+                        acceptedFileTypes='.jpeg,.jpg,.png,.bmp'
+                        @vdropzone-thumbnail="thumbnail"
+                        :options="ktpDropzoneOption">
+                            <div class="dropzone-custom-content">
+                                <i class="fas fa-photo-video fa-3x"></i>
+                                <div class="subtitle mt-2">Masukkan Foto KTP</div>
+                            </div>
+                    </vue-dropzone>
+                    <label class="mt-3">Resume Medis</label>
                     <vue-dropzone :useCustomSlot=true style="min-height:150px" 
                         class="card border-dashed text-color-blue mt-2" 
                         ref="dropzoneResumeMedis" id="dropzoneResumeMedis" 
@@ -128,6 +141,7 @@
                                 <div class="subtitle mt-2">Masukkan Foto Resume Medis</div>
                             </div>
                     </vue-dropzone>
+                    <label class="mt-3">Kwitansi Perawatan</label>
                     <vue-dropzone :useCustomSlot=true style="min-height:150px" 
                         class="card border-dashed text-color-blue mt-2" 
                         ref="dropzoneKwitansiPerawatan" id="dropzoneKwitansiPerawatan" 
@@ -139,6 +153,7 @@
                                 <div class="subtitle mt-2">Masukkan Foto Kwitansi Perawatan Akhir</div>
                             </div>
                     </vue-dropzone>
+                    <label class="mt-3">Copy Resep</label>
                     <vue-dropzone :useCustomSlot=true style="min-height:150px" 
                         class="card border-dashed text-color-blue mt-2" 
                         ref="dropzoneCopyResep" id="dropzoneCopyResep" 
@@ -150,6 +165,7 @@
                                 <div class="subtitle mt-2">Masukkan Foto Copy Resep</div>
                             </div>
                     </vue-dropzone>
+                    <label class="mt-3">Dokumen Lainnya</label>
                     <vue-dropzone :useCustomSlot=true style="min-height:150px" 
                         class="card border-dashed text-color-blue mt-2" 
                         ref="dropzoneKwitansiObat" id="dropzoneKwitansiObat" 
@@ -158,7 +174,7 @@
                         :options="resumeKwitansiObatDropzoneOption">
                             <div class="dropzone-custom-content">
                                 <i class="fas fa-photo-video fa-3x"></i>
-                                <div class="subtitle mt-2">Masukkan Foto Kwitansi Obat</div>
+                                <div class="subtitle mt-2">Masukkan Dokumen Pendukung Lainnya</div>
                             </div>
                     </vue-dropzone>
                 </div>
@@ -174,6 +190,20 @@ export default {
         return {
             myClaim:{},
             is_destroying:false,
+            ktpDropzoneOption: {
+                url: process.env.VUE_APP_SERVICE_URL + "/claim/upload/" +this.$route.query.id + "/KTP",
+                acceptedFileTypes:'.jpeg,.jpg,.png,.bmp',
+                paramName: "file",
+                thumbnailHeight: 150,
+                maxFilesize: 1,
+                addRemoveLinks:false,
+                useCustomSlot:true,
+                dictCancelUpload:"Cancel",
+                headers: {
+                    'Authorization': 'Bearer ' + this.$auth.getToken(),
+                    'type':'KTP'
+                }
+            },
             resumeMedisDropzoneOption: {
                 url: process.env.VUE_APP_SERVICE_URL + "/claim/upload/" +this.$route.query.id + "/RESUME_MEDIS",
                 acceptedFileTypes:'.jpeg,.jpg,.png,.bmp',
@@ -246,6 +276,7 @@ export default {
         
         this.myClaim = dataClaim !== undefined && dataClaim.is_ok == true ? dataClaim.data :defaultData;
         
+        console.log('claim', this.myClaim)
         
         if(this.myClaim._id !== '') {
             if(this.myClaim.cashless == true){
@@ -258,7 +289,7 @@ export default {
                 var token = this.$auth.getToken()
                 for(var key in  this.myClaim.document){
                 var doc = this.myClaim.document[key];              
-                var file = { size: doc.size, name: doc._id, type: doc.mimetype };
+                var file = { size: doc.size ? doc.size : 1024 * 1024, name: doc._id, type: doc.mimetype };
                 var url = process.env.VUE_APP_DOCUMENT_URL + doc.path + "?token=" + token;
 
                 if(doc.type == "RESUME_MEDIS")
@@ -269,6 +300,8 @@ export default {
                     this.$refs.dropzoneCopyResep.manuallyAddFile(file, url);
                 else if(doc.type == "OTHERS")
                     this.$refs.dropzoneKwitansiObat.manuallyAddFile(file, url);
+                else if(doc.type == "KTP")
+                    this.$refs.dropzoneKTP.manuallyAddFile(file, url);
                 }
             }
         }

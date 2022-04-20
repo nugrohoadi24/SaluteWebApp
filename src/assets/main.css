@@ -179,6 +179,12 @@ a:hover {
     text-decoration: none;
 }
 
+.btn-add {
+    margin: 8px 0px !important;
+    background-color: #46AC34 !important;
+    border-color: #46AC34 !important;
+}
+
 /* Like Mobile */
 .page,
 .width-control {

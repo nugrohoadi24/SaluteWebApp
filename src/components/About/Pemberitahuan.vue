@@ -14,7 +14,7 @@
                             <h3 class="text-description ">
                                 {{ isDate(item.show_at) }}
                             </h3>
-                            <h3 class="text-subheading text-uppercase">
+                            <h3 class="text-description font-weight-bolder text-uppercase">
                                 {{ item.title }}
                             </h3>
                         </div>
