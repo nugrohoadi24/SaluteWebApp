@@ -192,8 +192,10 @@
                 <div class="text-description text-center text-danger" v-if="showMessage">
                     {{ messageError }}
                 </div>
-
-                <div class="d-flex mt-3">
+                <div v-if="loadingSubmit" class="form-group">
+                    <Loading/>
+                </div>
+                <div class="d-flex mt-3" v-else>
                     <button class="btn-outline-green mx-2" @click="onCancel">
                         <i class="far fa-times-circle fa-lg mr-2"></i>
                         <span>Batal</span>
@@ -241,6 +243,7 @@ export default {
             idBenefit:'',
             idRekanan:'',
             namaRekanan:'',
+            loadingSubmit:false,
             myAccount:{},
             myBenefit:{},
             radioAlasan:'',
@@ -399,6 +402,7 @@ export default {
             )
         },
         async onSave(){
+            this.loadingSubmit = true
             if(this.isValidAll()){
                 let formData = new FormData()
 
@@ -437,6 +441,7 @@ export default {
                 var response = await this.$apiController('post', `/digital_form/create`, formData)
                         
                 if(response.is_ok){
+                    this.loadingSubmit = false
                     this.claim_ticket = response.data.form_claim_number
                     this.$bvModal.show('success')
                 }else {
@@ -445,6 +450,7 @@ export default {
                     this.messageError = response.message;                   
                 }
             }
+            this.loadingSubmit = false
         },
         onCancel(){
             this.$router.push('/klaim');

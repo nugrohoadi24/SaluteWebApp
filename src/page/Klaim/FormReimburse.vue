@@ -229,14 +229,15 @@
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Foto KTP</span>
-                    <input type="file" ref="ktp" name="ktp" id="ktp" @change="handleFotoKTP" class="form-control m-2" multiple="false" required>
+                    <input type="file" ref="ktp" name="ktp" id="ktp" @change="handleFotoKTP" class="form-control m-2" multiple="false" placeholder="Upload Foto KTP Maks 1MB" required>
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>Foto Resume Medis</span>
                     <div class="d-flex">
                         <input type="file" name="resume_medis" id="resume_medis" @change="resumeMedis" class="form-control m-2" multiple="false" required>
-                        <b-button v-b-toggle.resume-2.resume-3 class="btn-add">
-                            <i class="fa fa-plus"></i>
+                        <b-button v-b-toggle.resume-2.resume-3 :class="[isActive1 ? 'btn-add' : 'btn-min']" @click="toggle('toggle-1')">
+                            <div v-if="isActive1" class="font-weight-bolder">+</div>
+                            <div v-else class="font-weight-bolder">−</div>
                         </b-button>
                     </div>
                     <b-collapse id="resume-2" class="mt-2">
@@ -250,8 +251,9 @@
                     <span>Foto Kwitansi Asli Biaya Pengobatan (Jika Ada)</span>
                     <div class="d-flex">
                         <input type="file" name="kwitansi_asli" id="kwitansi_asli" @change="kwitansiAsliPengobatan" class="form-control m-2" multiple="false">
-                        <b-button v-b-toggle.kwitasi-2.kwitasi-3 class="btn-add">
-                            <i class="fa fa-plus"></i>
+                        <b-button v-b-toggle.kwitasi-2.kwitasi-3 :class="[isActive2 ? 'btn-add' : 'btn-min']" @click="toggle('toggle-2')">
+                            <div v-if="isActive2" class="font-weight-bolder">+</div>
+                            <div v-else class="font-weight-bolder">−</div>
                         </b-button>
                     </div>
                     <b-collapse id="kwitasi-2" class="mt-2">
@@ -265,8 +267,9 @@
                     <span>Foto Kwitansi Asli Biaya Penunjang Medis</span>
                     <div class="d-flex">
                         <input type="file" name="kwitansi_penunjang" id="kwitansi_penunjang" @change="kwitansiAsliPenunjang" class="form-control m-2" multiple="false" required>
-                        <b-button v-b-toggle.penunjang-2.penunjang-3 class="btn-add">
-                            <i class="fa fa-plus"></i>
+                        <b-button v-b-toggle.penunjang-2.penunjang-3 :class="[isActive3 ? 'btn-add' : 'btn-min']" @click="toggle('toggle-3')">
+                            <div v-if="isActive3" class="font-weight-bolder">+</div>
+                            <div v-else class="font-weight-bolder">−</div>
                         </b-button>
                     </div>
                     <b-collapse id="penunjang-2" class="mt-2">
@@ -280,8 +283,9 @@
                     <span>Dokumen Lainnya</span>
                     <div class="d-flex">
                         <input type="file" name="doc_lainnya" id="doc_lainnya" @change="dokumenLainnya" class="form-control m-2" multiple="true" required>
-                        <b-button v-b-toggle.lainnya-2.lainnya-3 class="btn-add">
-                            <i class="fa fa-plus"></i>
+                        <b-button v-b-toggle.lainnya-2.lainnya-3 :class="[isActive4 ? 'btn-add' : 'btn-min']" @click="toggle('toggle-4')">
+                            <div v-if="isActive4" class="font-weight-bolder">+</div>
+                            <div v-else class="font-weight-bolder">−</div>
                         </b-button>
                     </div>
                     <b-collapse id="lainnya-2" class="mt-2">
@@ -319,8 +323,10 @@
                 <div class="text-description text-center text-danger" v-if="showMessage">
                     {{ messageError }}
                 </div>
-
-                <div class="d-flex mt-3">
+                <div v-if="loadingSubmit" class="form-group">
+                    <Loading/>
+                </div>
+                <div class="d-flex mt-3" v-else>
                     <button class="btn-outline-green mx-2" @click="onCancel">
                         <i class="far fa-times-circle fa-lg mr-2"></i>
                         <span>Batal</span>
@@ -379,6 +385,7 @@ export default {
             idBenefit:'',
             idRekanan:'',
             namaRekanan:'',
+            loadingSubmit:false,
             myAccount:{},
             myBenefit:{},
             radioAlasan:'',
@@ -455,7 +462,12 @@ export default {
             keyword:'',
             items:{},
             currentPage:1,
-            totalPage:1
+            totalPage:1,
+
+            isActive1:true,
+            isActive2:true,
+            isActive3:true,
+            isActive4:true,
         }
     },
     async created() {
@@ -567,65 +579,15 @@ export default {
                 return this.validateNamaPengaju = false
             }
         },
-        // isValidKTPSize(){
-        //     if(this.ktp.size > 1024 * 1024) {
-        //         alert('Ukuran file KTP terlalu besar, maksimal 1MB)');
-        //         return this.validateKTPSize = false;
-        //     } else {
-        //         return this.validateKTPSize = true;
-        //     }
-        // },
-        // isValidResumeMedisSize(){
-        //     if(this.resume_medis.size > 1024 * 1024) {
-        //         alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB)');
-        //         return this.validateResumeMedisSize = false;
-        //     } else {
-        //         return this.validateResumeMedisSize = true;
-        //     }
-        // },
-        // isValidKwitansiAsliSize(){
-        //     if(this.kwitansi_asli.size > 1024 * 1024) {
-        //         alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB)');
-        //         return this.validateKwitansiAsliSize = false;
-        //     } else {
-        //         return this.validateKwitansiAsliSize = true;
-        //     }
-        // },
-        // isValidKwitansiPenunjangSize(){
-        //     if(this.kwitansi_penunjang.size > 1024 * 1024) {
-        //         alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
-        //         return this.validateKwitansiPenunjangSize = false;
-        //     } else {
-        //         return this.validateKwitansiPenunjangSize = true;
-        //     }
-        // },
-        // isValidDokumenLainSize(){
-        //     if(this.doc_lainnya.size > 1024 * 1024) {
-        //         alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
-        //         return this.validateDokumenLainSize = false;
-        //     } else {
-        //         return this.validateDokumenLainSize = true;
-        //     }
-        // },
         isValidAll(){
             this.isValidRekanan()
             this.isValidNamaPengaju()
             this.isValidDateTime()
-            // this.isValidKTPSize()
-            // this.isValidResumeMedisSize()
-            // this.isValidKwitansiAsliSize()
-            // this.isValidKwitansiPenunjangSize()
-            // this.isValidDokumenLainSize()
 
             return (
                 this.validateProvider &&
                 this.validateNamaPengaju &&
-                (this.validateDateKecelakaan || this.validateDateSakit) 
-                // this.validateKTPSize &&
-                // this.validateResumeMedisSize &&
-                // this.validateKwitansiAsliSize &&
-                // this.validateKwitansiPenunjangSize &&
-                // this.validateDokumenLainSize
+                (this.validateDateKecelakaan || this.validateDateSakit)
             )
         },
         async pageClick(page){
@@ -752,7 +714,23 @@ export default {
                 return;
             }
         },
+        toggle(value){
+            console.log('val', value)
+            if(value == 'toggle-1') {
+                this.isActive1 = !this.isActive1
+            }
+            else if(value == 'toggle-2') {
+                this.isActive2 = !this.isActive2
+            }
+            else if(value == 'toggle-3') {
+                this.isActive3 = !this.isActive3
+            }
+            else if(value == 'toggle-4') {
+                this.isActive4 = !this.isActive4
+            }
+        },
         async onSave(){
+            this.loadingSubmit = true
             if(this.isValidAll()){
                 if(this.nonBCA == true){
                     this.final_nama_bank = this.nama_bank + ' ' + this.nama_cabang
@@ -821,6 +799,7 @@ export default {
                     }
                 }) 
                 if(response.is_ok){
+                    this.loadingSubmit = false
                     this.claim_ticket = response.data.form_claim_number
                     this.$bvModal.show('success')
                 }else {
@@ -829,6 +808,7 @@ export default {
                     this.messageError = response.message;                   
                 }
             }
+            this.loadingSubmit = false
         },
         onCancel(){
             this.$router.push('/klaim');

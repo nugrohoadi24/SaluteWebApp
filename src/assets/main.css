@@ -23,6 +23,9 @@ a:hover {
     text-decoration: none;
 }
 
+/* input, textarea {
+    text-transform: uppercase;
+} */
 
 .text-big {
     margin-bottom: 0.5rem;
@@ -184,7 +187,11 @@ a:hover {
     background-color: #46AC34 !important;
     border-color: #46AC34 !important;
 }
-
+.btn-min {
+    margin: 8px 0px !important;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
 /* Like Mobile */
 .page,
 .width-control {
