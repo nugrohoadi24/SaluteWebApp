@@ -19,15 +19,15 @@
                     <textarea v-model="myAccount.address" rows="1" class="form-control border-input-bottom" placeholder="Masukkan Alamat Lengkap Anda"></textarea>
                 </div>
 
-                <div class="text-color-blue mb-2" v-if="myAccount.province !== undefined">
+                <div class="text-color-blue mb-2" v-if="myAccount.province !== undefined && myAccount.province !== null">
                     <span>Provinsi</span>
                     <select @change="loadCity" v-model="selectProvince" name="province" id="province" class="form-control border-input-bottom">
                         <option 
                             selected disabled>{{ myAccount.province.name }}</option>
                         <option
                             v-for="getProvinsi in province"
-                            v-bind:key="getProvinsi._id"
-                            v-bind:value="getProvinsi._id">
+                            v-bind:key="getProvinsi.code"
+                            v-bind:value="getProvinsi.code">
                             {{ getProvinsi.name }}
                         </option>
                     </select>
@@ -39,22 +39,22 @@
                             selected disabled></option>
                         <option
                             v-for="getProvinsi in province"
-                            v-bind:key="getProvinsi._id"
-                            v-bind:value="getProvinsi._id">
+                            v-bind:key="getProvinsi.code"
+                            v-bind:value="getProvinsi.code">
                             {{ getProvinsi.name }}
                         </option>
                     </select>
                 </div>
 
-                <div class="text-color-blue mb-2" v-if="myAccount.city !== undefined">
+                <div class="text-color-blue mb-2" v-if="myAccount.city !== undefined && myAccount.city !== null">
                     <span>Kota</span>
                     <select @change="loadDistrict" v-model="selectCity" name="city" id="city" class="form-control border-input-bottom">
                         <option 
                             selected disabled>{{ myAccount.city.name }}</option>
                         <option
                             v-for="getCity in city"
-                            v-bind:key="getCity._id"
-                            v-bind:value="getCity._id">
+                            v-bind:key="getCity.code"
+                            v-bind:value="getCity.code">
                             {{ getCity.name }}
                         </option>
                     </select>
@@ -66,22 +66,22 @@
                             selected disabled></option>
                         <option
                             v-for="getCity in city"
-                            v-bind:key="getCity._id"
-                            v-bind:value="getCity._id">
+                            v-bind:key="getCity.code"
+                            v-bind:value="getCity.code">
                             {{ getCity.name }}
                         </option>
                     </select>
                 </div>
 
-                <div class="text-color-blue mb-2" v-if="myAccount.district !== undefined">
+                <div class="text-color-blue mb-2" v-if="myAccount.district !== undefined  && myAccount.district !== null">
                     <span>Kecamatan</span>
                     <select @change="loadSubdistrict" v-model="selectDistrict" name="district" id="district" class="form-control border-input-bottom">
                         <option 
                             selected disabled>{{ myAccount.district.name }}</option>
                         <option
                             v-for="getDistrict in district"
-                            v-bind:key="getDistrict._id"
-                            v-bind:value="getDistrict._id">
+                            v-bind:key="getDistrict.code"
+                            v-bind:value="getDistrict.code">
                             {{ getDistrict.name }}
                         </option>
                     </select>
@@ -93,22 +93,22 @@
                             selected disabled></option>
                         <option
                             v-for="getDistrict in district"
-                            v-bind:key="getDistrict._id"
-                            v-bind:value="getDistrict._id">
+                            v-bind:key="getDistrict.code"
+                            v-bind:value="getDistrict.code">
                             {{ getDistrict.name }}
                         </option>
                     </select>
                 </div>
 
-                <div class="text-color-blue mb-2" v-if="myAccount.subdistrict !== undefined">
+                <div class="text-color-blue mb-2" v-if="myAccount.subdistrict !== undefined && myAccount.subdistrict !== null">
                     <span>Kelurahan</span>
                     <select v-model="selectSubdistrict" name="subdistrict" id="subdistrict" class="form-control border-input-bottom">
                         <option 
                             selected disabled>{{ myAccount.subdistrict.name }}</option>
                         <option
                             v-for="getSubdistrict in subdistrict"
-                            v-bind:key="getSubdistrict._id"
-                            v-bind:value="getSubdistrict._id">
+                            v-bind:key="getSubdistrict.code"
+                            v-bind:value="getSubdistrict.code">
                             {{ getSubdistrict.name }}
                         </option>
                     </select>
@@ -120,8 +120,8 @@
                             selected disabled></option>
                         <option
                             v-for="getSubdistrict in subdistrict"
-                            v-bind:key="getSubdistrict._id"
-                            v-bind:value="getSubdistrict._id">
+                            v-bind:key="getSubdistrict.code"
+                            v-bind:value="getSubdistrict.code">
                             {{ getSubdistrict.name }}
                         </option>
                     </select>
@@ -225,20 +225,29 @@ export default {
         let dataAccount = await this.$apiController('get', '/user_detail').catch(err=>console.log(err));
         
         this.myAccount = dataAccount !== undefined && dataAccount.is_ok == true ? dataAccount.data : defaultAccount ;
+        this.loadProvince();
+
         if(this.myAccount.self_register == false){
             this.disable_edit = true
         }
 
-        if (this.myAccount.subdistrict !== undefined) {
+        if(this.myAccount.province == null) {
+            this.myAccount.province = {
+                code: "",
+                name: "",
+                _id: "",
+            }
+        }
+
+        if (this.myAccount.subdistrict !== undefined && this.myAccount.subdistrict !== null) {
             this.selectProvince = this.myAccount.province.name;
             this.selectCity =  this.myAccount.city.name;
             this.selectDistrict = this.myAccount.district.name;
             this.selectSubdistrict = this.myAccount.subdistrict.name;
         } else {
-            
             //SET DATA IF KEY NULL
 
-            if(this.myAccount.province !== undefined) {
+            if(this.myAccount.province !== undefined && this.myAccount.province !== null) {
                 this.selectProvince = this.myAccount.province.name;
             } else {
                 this.selectProvince = '';
@@ -262,8 +271,6 @@ export default {
                 this.selectSubdistrict = '';
             }
         }
-        
-        this.loadProvince();
     },
     methods: {
         async onSave() {
@@ -301,7 +308,6 @@ export default {
             this.$emit('showLoading', true);
             var response = await this.$apiController('get', `/master/province`);
             this.$emit('showLoading', false);
-            console.log(response);
             if(response.is_ok){
                 this.province = response.data;
             }else {
@@ -312,7 +318,6 @@ export default {
             this.$emit('showLoading', true);
             var response = await this.$apiController('get', `/master/city/`+ event.target.value);
             this.$emit('showLoading', false);
-            console.log(response);
             if(response.is_ok){
                 this.city = response.data;
             }else {
@@ -344,44 +349,32 @@ export default {
         selectProvince(value){
             let getData = this.province;
             getData.forEach( item => {
-                if(item._id == value) {
-                    this.myAccount['province'] = {
-                        _id: item._id,
-                        name:item.name
-                    }
+                if(item.code == value) {
+                    this.myAccount.province = item.code
                 }
             })
         },
         selectCity(value){
             let getData = this.city;
             getData.forEach( item => {
-                if(item._id == value) {
-                    this.myAccount['city'] = {
-                        _id: item._id,
-                        name:item.name
-                    }
+                if(item.code == value) {
+                    this.myAccount.city = item.code
                 }
             })
         },
         selectDistrict(value){
             let getData = this.district;
             getData.forEach( item => {
-                if(item._id == value) {
-                    this.myAccount['district'] = {
-                        _id: item._id,
-                        name:item.name
-                    }
+                if(item.code == value) {
+                    this.myAccount.district = item.code
                 }
             })
         },
         selectSubdistrict(value){
             let getData = this.subdistrict;
             getData.forEach( item => {
-                if(item._id == value) {
-                    this.myAccount['subdistrict'] = {
-                        _id: item._id,
-                        name:item.name
-                    }
+                if(item.code == value) {
+                    this.myAccount.subdistrict = item.code
                 }
             })
         }
