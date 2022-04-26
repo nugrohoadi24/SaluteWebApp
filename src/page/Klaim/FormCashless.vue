@@ -27,7 +27,7 @@
                 </div>
                 <div class="text-color-blue mb-2" v-else>
                     <span>NIK Peserta</span>
-                    <input v-model="myAccount.nik" minlength="16" maxlength="16" type="number" class="form-control border-input-bottom" placeholder="Masukkan NIK" required disabled>
+                    <input v-model="myAccount.nik_tertanggung" minlength="16" maxlength="16" type="number" class="form-control border-input-bottom" placeholder="Masukkan NIK" required>
                 </div>
                 <div class="text-color-blue mb-2">
                     <span>ID Peserta</span>
@@ -317,7 +317,7 @@ export default {
             if(item._id == this.idBenefit) {
                 this.myBenefit = item
             }
-        })    
+        })
     },
     mounted(){
         let getId = this.$route.query.id;

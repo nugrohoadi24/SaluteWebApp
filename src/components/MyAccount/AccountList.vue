@@ -1,7 +1,7 @@
 <template>
     <div class="container space-bottom">
       <div v-if="myAccount !== undefined">
-        <div v-if="myPolicy.length > 0">
+        <div>
           <carousel 
             class="mt-2"
             :responsive="responsive">
