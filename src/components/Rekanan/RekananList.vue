@@ -11,7 +11,7 @@
                     <div class="text-description text-uppercase">{{ item.phone1 }}</div>
                 </router-link>
                 <div class="rekanan-more mt-2">
-                    <button @click="copyContact" class="text-color-blue text-note p-2 bg-transparent border-0">
+                    <button @click="getContact(item.phone1)" class="text-color-blue text-note p-2 bg-transparent border-0">
                         <div><i class="fas fa-phone-alt mr-1 text-color-green"></i>Telepon Sekarang</div>
                     </button>
                     <a :href="'https://maps.google.com/maps?q='+ item.latitude + ',' + item.longitude" 
@@ -22,7 +22,8 @@
                         Lihat Peta
                     </a>
                 </div>
-                    <input id="copyTextContact" type="text" class="text-right" style="display:contents;bottom:0%;z-index:-99999;height:0px;border:none;color:transparent;" :value="item.phone1" >
+                    <input type="text" class="text-right" v-model="item.phone1" style="display:contents;bottom:0%;z-index:-99999;height:0px;border:none;color:transparent;">
+                    <input id="copyTextContact" type="text" class="text-right" v-model="setPhone" style="display:contents;bottom:0%;z-index:-99999;height:0px;border:none;color:transparent;">
                 <hr>
             </div>
             <b-pagination
@@ -37,7 +38,7 @@
             <div class="text-center text-description text-color-blue m-4">
                 Detail kontak berhasil di copy ke clipboard.
             </div>
-            <b-button class="color-blue mt-3" block @click="$bvModal.hide('attention')">Oke</b-button>
+            <b-button class="color-blue mt-3" block @click="hasCopy">Oke</b-button>
         </b-modal>
     </div>
 </template>
@@ -47,6 +48,7 @@ export default {
     data() {
         return {
             keyword:'',
+            setPhone:'',
             currentPage:1
         }
     },
@@ -61,6 +63,10 @@ export default {
         pageClick(nowPage) {
             this.$eventBus.$emit("pagination", nowPage);
         },
+        getContact(getPhone){
+            this.setPhone = getPhone
+            this.copyContact()
+        },
         copyContact(){
             var copyText = document.getElementById("copyTextContact");
             copyText.select();
@@ -68,6 +74,14 @@ export default {
 
             navigator.clipboard.writeText(copyText.value);
             this.$refs.attention.show()
+        },
+        hasCopy(){
+            var hasCopyText = document.getElementById("copyTextContact");
+            hasCopyText.select();
+            hasCopyText.setSelectionRange(0, 99999)
+
+            navigator.clipboard.writeText(hasCopyText.value);
+            this.$refs.attention.hide()
         }
     }
 }

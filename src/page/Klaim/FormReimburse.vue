@@ -614,7 +614,7 @@ export default {
             this.ktp = e.target.files[0]
 
             if(this.ktp.size > 1024 * 1024) {
-                alert('Ukuran file KTP terlalu besar, maksimal 1MB)');
+                alert('Ukuran file KTP terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -622,7 +622,7 @@ export default {
             this.resume_medis = e.target.files[0]
 
             if(this.resume_medis.size > 1024 * 1024) {
-                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -630,7 +630,7 @@ export default {
             this.resume_medis2 = e.target.files[0]
 
             if(this.resume_medis2.size > 1024 * 1024) {
-                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -638,7 +638,7 @@ export default {
             this.resume_medis3 = e.target.files[0]
 
             if(this.resume_medis3.size > 1024 * 1024) {
-                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Resume Medis terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -646,7 +646,7 @@ export default {
             this.kwitansi_asli = e.target.files[0]
 
             if(this.kwitansi_asli.size > 1024 * 1024) {
-                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -654,7 +654,7 @@ export default {
             this.kwitansi_asli2 = e.target.files[0]
 
             if(this.kwitansi_asli2.size > 1024 * 1024) {
-                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -662,7 +662,7 @@ export default {
             this.kwitansi_asli3 = e.target.files[0]
 
             if(this.kwitansi_asli3.size > 1024 * 1024) {
-                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Kwitansi Asli terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -670,7 +670,7 @@ export default {
             this.kwitansi_penunjang = e.target.files[0]
 
             if(this.kwitansi_penunjang.size > 1024 * 1024) {
-                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -678,7 +678,7 @@ export default {
             this.kwitansi_penunjang2 = e.target.files[0]
 
             if(this.kwitansi_penunjang2.size > 1024 * 1024) {
-                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -686,7 +686,7 @@ export default {
             this.kwitansi_penunjang3 = e.target.files[0]
 
             if(this.kwitansi_penunjang3.size > 1024 * 1024) {
-                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Kwitansi Penunjang terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -694,7 +694,7 @@ export default {
             this.doc_lainnya = e.target.files[0]
 
             if(this.doc_lainnya.size > 1024 * 1024) {
-                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -702,7 +702,7 @@ export default {
             this.doc_lainnya2 = e.target.files[0]
 
             if(this.doc_lainnya2.size > 1024 * 1024) {
-                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB');
                 return;
             }
         },
@@ -710,7 +710,7 @@ export default {
             this.doc_lainnya3 = e.target.files[0]
 
             if(this.doc_lainnya3.size > 1024 * 1024) {
-                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB)');
+                alert('Ukuran file Dokumen Lainnya terlalu besar, maksimal 1MB');
                 return;
             }
         },

@@ -123,6 +123,8 @@
                         ref="dropzoneKTP" id="dropzoneKTP" 
                         acceptedFileTypes='.jpeg,.jpg,.png,.bmp'
                         @vdropzone-thumbnail="thumbnail"
+                        @vdropzone-error="onUploadError"
+                        @vdropzone-success="onUploadSuccess"
                         :options="ktpDropzoneOption">
                             <div class="dropzone-custom-content">
                                 <i class="fas fa-photo-video fa-3x"></i>
@@ -135,6 +137,8 @@
                         ref="dropzoneResumeMedis" id="dropzoneResumeMedis" 
                         acceptedFileTypes='.jpeg,.jpg,.png,.bmp'
                         @vdropzone-thumbnail="thumbnail"
+                        @vdropzone-error="onUploadError"
+                        @vdropzone-success="onUploadSuccess"
                         :options="resumeMedisDropzoneOption">
                             <div class="dropzone-custom-content">
                                 <i class="fas fa-photo-video fa-3x"></i>
@@ -147,6 +151,8 @@
                         ref="dropzoneKwitansiPerawatan" id="dropzoneKwitansiPerawatan" 
                         acceptedFileTypes='.jpeg,.jpg,.png,.bmp'
                         @vdropzone-thumbnail="thumbnail"
+                        @vdropzone-error="onUploadError"
+                        @vdropzone-success="onUploadSuccess"
                         :options="resumeKwitansiPerawatanDropzoneOption">
                             <div class="dropzone-custom-content">
                                 <i class="fas fa-photo-video fa-3x"></i>
@@ -159,6 +165,8 @@
                         ref="dropzoneCopyResep" id="dropzoneCopyResep" 
                         acceptedFileTypes='.jpeg,.jpg,.png,.bmp'
                         @vdropzone-thumbnail="thumbnail"
+                        @vdropzone-error="onUploadError"
+                        @vdropzone-success="onUploadSuccess"
                         :options="resumeCopyResepDropzoneOption">
                             <div class="dropzone-custom-content">
                                 <i class="fas fa-photo-video fa-3x"></i>
@@ -171,6 +179,8 @@
                         ref="dropzoneKwitansiObat" id="dropzoneKwitansiObat" 
                         acceptedFileTypes='.jpeg,.jpg,.png,.bmp'
                         @vdropzone-thumbnail="thumbnail"
+                        @vdropzone-error="onUploadError"
+                        @vdropzone-success="onUploadSuccess"
                         :options="resumeKwitansiObatDropzoneOption">
                             <div class="dropzone-custom-content">
                                 <i class="fas fa-photo-video fa-3x"></i>
@@ -321,6 +331,20 @@ export default {
         number(value){
             let val = (value/1).toFixed(0).replace('.', ',')
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        },
+        async onUploadSuccess(file, response){
+            if(Boolean(response.data)){
+            if(response.is_ok){
+            }else {
+                alert(response.message);                      
+            }
+            }else{
+                alert('Tidak dapat mengupload file');                      
+            }
+        },
+
+        async onUploadError(file, response){
+            alert('Tidak dapat menambah dokumen karena sudah melewati tahap "Verifikasi Biaya Akhir", silahkan hubungi CS Salvus Health untuk perubahan data!');                      
         },
     }
 }

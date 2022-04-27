@@ -6,7 +6,7 @@
                     <div class="floating__icon">
                         <div class="toggle-whatsapp">
                         <div class="floating-text">
-                            Ajukan Claim
+                            AJUKAN KLAIM
                         </div>
                         </div>
                     </div>
@@ -14,21 +14,6 @@
             </div>
             <b-modal id="claimModal" ref="claimModal" 
             hide-header hide-footer centered>
-            <!-- <div class="text-center text-description text-color-blue m-4">
-                <a 
-                href="https://salvushealth.id/formcashless"
-                target="_blank" 
-                class="btn btn-blue d-flex align-items-center justify-content-center mt-3">
-                    <div>PENGAJUAN CASHLESS</div>
-                </a>
-                <a 
-                href="https://salvushealth.id/formreimburse"
-                target="_blank" 
-                class="btn btn-blue d-flex align-items-center justify-content-center mt-3">
-                    <div>PENGAJUAN REIMBURSE</div>
-                </a>
-            </div> -->
-
             <div class="text-center text-description text-color-blue m-4">
                 <router-link 
                 to="/select-benefit?type=cashless"
