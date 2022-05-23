@@ -24,6 +24,15 @@ import FormReimburse from "@/page/Klaim/FormReimburse"
 import SelectProvider from "@/page/Klaim/SelectProvider"
 
 import Shop from "@/page/Shop"
+import ProductList from "@/page/Shop/ProductList"
+import ProductDetail from "@/page/Shop/ProductDetail"
+import VoucherList from "@/page/Shop/VoucherList"
+import VoucherDetail from "@/page/Shop/VoucherDetail"
+import Pesanan from "@/page/Shop/Pesanan"
+
+import PaymentMethod from "@/page/Shop/PaymentMethod"
+import TransactionManual from "@/page/Shop/TransactionManual"
+import PendingPayment from "@/page/Shop/PendingPayment"
 
 import About from "@/page/About"
 import Faq from "@/page/About/PertanyaanJawaban.vue"
@@ -131,6 +140,70 @@ var router = new VueRouter({
         path: "/shop",
         name: "shop",
         component: Shop,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/product-list",
+        name: "ProductList",
+        component: ProductList,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/product-detail",
+        name: "ProductDetail",
+        component: ProductDetail,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/voucher-list",
+        name: "VoucherList",
+        component: VoucherList,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/voucher-detail",
+        name: "VoucherDetail",
+        component: VoucherDetail,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/pesanan",
+        name: "Pesanan",
+        component: Pesanan,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/payment-method",
+        name: "PaymentMethod",
+        component: PaymentMethod,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/transaction-manual",
+        name: "TransactionManual",
+        component: TransactionManual,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/pending-payment",
+        name: "PendingPayment",
+        component: PendingPayment,
         meta:{
             requiresAuth:true
         }

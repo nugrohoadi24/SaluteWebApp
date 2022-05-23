@@ -100,12 +100,6 @@ export default {
         }
 
         this.sortCard = removeDuplicates(this.sortCard, "card_no");
-
-        console.log('acc', this.myAccount)
-        console.log('pol', this.myPolicy)
-        console.log('ben', this.myBenefit)
-        console.log('sort', this.sortCard)
-
         this.loading = false;
     },
 }

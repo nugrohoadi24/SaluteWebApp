@@ -2,15 +2,15 @@
   <div class="fix-top">
     <div class="container">
     <div class="row d-block text-center" v-if="myAccount !== undefined">
-        <div class="avatar" v-if="myAccount.avatar !=='' || myAccount.avatar !== undefined">
+        <div class="avatar" v-if="myAccount.avatar !=='' && myAccount.avatar !== undefined">
             <img 
               v-lazy="baseURL + myAccount.avatar + '?token=' + token" 
               src="@/assets/img/low_res_500.jpg"
               :alt="myAccount.nama" 
               :title="myAccount.nama">
         </div>
-        <div class="avatar" v-else>
-            <img src="@/assets/img/icon/no-image.svg">
+        <div class=" text-color-grey" v-else>
+            <i class="fas fa-user fa-lg default-avatar"></i>
         </div>
         <div class="mt-3">
         <h3 class="text-subheading font-weight-normal">

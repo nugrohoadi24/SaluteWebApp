@@ -404,6 +404,10 @@ export default {
         async onSave(){
             this.loadingSubmit = true
             if(this.isValidAll()){
+                if(this.myBenefit.nik_tertanggung == undefined && this.myBenefit.nik_tertanggung == null){
+                    this.myBenefit.nik_tertanggung = this.myAccount.nik
+                }
+                
                 let formData = new FormData()
 
                 formData.append('form_type', '1')

@@ -8,6 +8,7 @@ import router from './router'
 import moment from 'moment'
 import money from 'v-money'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import VueQRCodeComponent from 'vue-qr-generator'
 
 // import store from './store'
 import VueLazyload from 'vue-lazyload'
@@ -188,6 +189,7 @@ Vue.component('Logo', Logo)
 Vue.component('NoData', NoData)
 Vue.component('Loading', Loading)
 Vue.component('Footer', Footer)
+Vue.component('qr-code', VueQRCodeComponent)
 
 new Vue({
   router: Router,
