@@ -5,7 +5,26 @@
                 <input type="text" class="form-control rekanan-search my-3" placeholder="Cari product" v-model="keyword">
             </form>
             <div class="my-3" v-for="item in items" :key="item._id">
-                <router-link :to="'/voucher-detail?i=' + item._id" class="d-flex card-voucher-list">
+                <router-link :to="'/voucher-detail?i=' + item._id+'&m=y'" class="d-flex card-voucher-list" v-if="item.is_membership?item.is_membership:''">
+                    <div class="col-3 p-2 shop-left shop-bg-blue">
+                        <div class="text-center">
+                            <div class="text-description">Paket</div>
+                            <div class="text-description font-weight-bold">{{ item.voucher_data.packet_days }} Hari</div>
+                        </div>
+                        <div class="text-center">
+                            <img src="@/assets/img/icon/rs.png" v-lazy="baseURL + item.provider_type.asset" :name="item.provider_type.name" class="w-50">
+                        </div>
+                    </div>
+                    <div class="col-9 text-color-blue p-2 shop-right-blue shop-bg-baby-blue">
+                        <div class="text-subheading">{{ item.voucher_data.name }}</div>
+                        <div class="text-description mb-2">{{ item.provider_data.name }}</div>
+                        <label>{{ item.voucher_data.short_description }}</label>
+                        <div class="text-note mt-2">Voucher dibeli tanggal <strong>{{ isDate(item.purchase_date) }}</strong></div>
+                        <div class="text-note mt-2">Voucher berlaku sampai <strong>{{ isDate(item.voucher_data.end_date) }}</strong></div>
+                        <div class="text-note mt-2">Order ID: <strong>{{ item.transaction_data.transaction_no }}</strong></div>
+                    </div>
+                </router-link>
+                <router-link :to="'/voucher-detail?i=' + item._id" class="d-flex card-voucher-list" v-else>
                     <div class="col-3 p-2 shop-left shop-bg-blue">
                         <div class="text-center">
                             <div class="text-description">Paket</div>

@@ -53,7 +53,6 @@ export default {
         }
         
         this.voucher = detailVoucher !== undefined && detailVoucher.is_ok == true ? detailVoucher.data : defaultVoucher;
-        console.log(this.voucher)
         this.loading = false;
     },
 }

@@ -9,7 +9,7 @@
                     <div class="col-3 p-2 shop-left shop-bg-green">
                         <div class="text-center">
                             <div class="text-description">Paket</div>
-                            <div class="text-description font-weight-bold">{{ item.voucher_data.packet_days }} Hari</div>
+                            <div class="text-description font-weight-bold">{{ item.voucher_data.packet_days?item.voucher_data.packet_days:'' }} Hari</div>
                         </div>
                         <div class="text-center">
                             <img src="@/assets/img/icon/rs.png" v-lazy="baseURL + item.provider_type.asset" :name="item.provider_type.name" class="w-50">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="card card-info-pesanan mt-2">
                     <div class="card-body d-flex justify-content-between">
-                        <div class="text-color-blue" v-if="item.status == 'WAITING_PAYMENT'">
+                        <div class="text-color-blue" v-if="item.status == 'MENUNGGU PEMBAYARAN ANDA'">
                             <div class="text-subheading mb-2">{{ item.payment_type }}</div>
                             <div class="text-description">Selesaikan pembayaran sebelum<br>{{ isDate(item.expired_at) }}</div>
                         </div>
@@ -34,21 +34,23 @@
                             <div class="text-description">{{ item.status }}</div>
                         </div>
 
-                        <div class="text-color-blue text-center" v-if="item.payment_type == 'E-WALLET (OVO)' || item.payment_type == 'E-WALLET (SHOPEEPAY)'">
-                            <div class="text-description">{{ item.transaction_no }}</div>
-                            <button class="btn btn-blue mt-2 p-2" @click="detailEWallet(item.e_wallet)">Lanjutkan</button>
-                        </div>
-                        <div class="text-color-blue text-center" v-else-if="item.virtual_account !== undefined">
-                            <div class="text-description">{{ item.transaction_no }}</div>
-                            <button class="btn btn-blue mt-2 p-2" @click="detailVA(item.virtual_account)">Lanjutkan</button>
-                        </div>
-                        <div class="text-color-blue text-center" v-else-if="item.payment_type == 'TRANSFER MANUAL'">
-                            <div class="text-description">{{ item.transaction_no }}</div>
-                            <router-link
-                                :to="'/transaction-manual?i=' + item._id"
-                                class="btn btn-blue mt-2 p-2">
-                                Lanjutkan
-                            </router-link>
+                        <div v-if="item.status == 'MENUNGGU PEMBAYARAN ANDA'">
+                            <div class="text-color-blue text-center" v-if="item.payment_type == 'E-WALLET (OVO)' || item.payment_type == 'E-WALLET (SHOPEEPAY)'">
+                                <div class="text-description">{{ item.transaction_no }}</div>
+                                <button class="btn btn-blue mt-2 p-2" @click="detailEWallet(item.e_wallet)">Lanjutkan</button>
+                            </div>
+                            <div class="text-color-blue text-center" v-else-if="item.virtual_account !== undefined">
+                                <div class="text-description">{{ item.transaction_no }}</div>
+                                <button class="btn btn-blue mt-2 p-2" @click="detailVA(item.virtual_account)">Lanjutkan</button>
+                            </div>
+                            <div class="text-color-blue text-center" v-else-if="item.payment_type == 'TRANSFER MANUAL'">
+                                <div class="text-description">{{ item.transaction_no }}</div>
+                                <router-link
+                                    :to="'/transaction-manual?i=' + item._id"
+                                    class="btn btn-blue mt-2 p-2">
+                                    Lanjutkan
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>

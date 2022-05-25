@@ -35,26 +35,6 @@
             </div>
         </div>
         <b-modal 
-            id="success" 
-            hide-header hide-footer centered no-close-on-backdrop no-close-on-esc
-        >
-            <div class="text-subheading text-color-blue text-center">
-                Voucher Berhasil Dibayar
-            </div>
-            <div class="d-flex justify-content-center">
-                <img src="@/assets/success.gif" class="w-50" alt="sukses bayar">
-            </div>
-            <div class="text-description text-center text-color-blue">
-                Terimakasih telah belanja di toko salute
-            </div>
-            <router-link 
-                to="/voucher-list"
-                class="btn btn-blue d-flex align-items-center justify-content-center mt-3"
-            >
-                <div>Selesai</div>
-            </router-link>
-        </b-modal>
-        <b-modal 
             id="failed" 
             hide-header hide-footer centered
         >
@@ -105,7 +85,7 @@ export default {
             var response = await this.$apiController('post', `/shop/notify_paid`, payment) 
             
             if(response.is_ok){
-                this.$bvModal.show('success')
+                this.$router.push('/transaction-success')
             } else {
                 this.failed_msg = response.message
                 this.$bvModal.show('failed')

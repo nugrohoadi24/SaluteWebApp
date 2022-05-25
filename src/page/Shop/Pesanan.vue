@@ -49,6 +49,22 @@ export default {
         this.items = dataPesanan !== undefined && dataPesanan.is_ok == true ? dataPesanan.data.docs : [];
         this.totalPage = dataPesanan !== undefined && dataPesanan.is_ok == true ? dataPesanan.data.total : [];
         
+        this.items.forEach(item => {
+            if(item.status == 'WAITING_PAYMENT'){
+                item.status = 'MENUNGGU PEMBAYARAN ANDA'
+            } else if (item.status == 'WAITING_CONFIRM'){
+                item.status = 'PEMBAYARAN SEDANG DIVERIFIKASI'
+            } else if (item.status == 'PAID'){
+                item.status = 'PEMBAYARAN SUDAH DITERIMA'
+            } else if (item.status == 'FINISHED'){
+                item.status = 'VOUCHER SUDAH TERSEDIA'
+            } else if (item.status == 'CANCELLED'){
+                item.status = 'TRANSAKSI BATAL'
+            } else {
+                item.status = 'ERROR'
+            }
+        })
+
         this.loading = false;
     },
     mounted() {

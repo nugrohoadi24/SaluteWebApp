@@ -33,28 +33,38 @@
                 
                 <hr>
                 <div class="text-description text-color-blue">{{ voucher.voucher_data.name }}</div>
-                <div class="d-flex text-color-blue justify-content-between">
-                    <div class="text-description font-weight-bolder d-flex align-items-center w-50">
-                        Rp. {{ number(voucher.voucher_data.price) }}
+                <div v-if="isMembership !== 'y'">
+                    <div class="d-flex text-color-blue justify-content-between">
+                        <div class="text-description font-weight-bolder d-flex align-items-center w-50">
+                            Rp. {{ number(voucher.voucher_data.price) }}
+                        </div>
+                        <button class="btn btn-edit p-2 w-32 mr-1" @click="redeem(voucher._id)" :disabled="check">
+                            <div class="text-description">Redeem</div>
+                        </button>
                     </div>
-                    <button class="btn btn-edit p-2 w-32 mr-1" @click="redeem(voucher._id)" :disabled="check">
-                        <div class="text-description">Redeem</div>
-                    </button>
-                </div>
-                <div class="text-description text-color-blue my-3">Berlaku Hingga <strong>{{ isDate(voucher.voucher_data.end_date) }}</strong></div>
-                <div class="d-flex align-items-center mt-3">
-                    <div class="input-group-prepend">
-                        <div class="px-0">
-                            <input type="checkbox" v-model="agree" aria-label="Checkbox for following text input">
+                    <div class="text-description text-color-blue my-3">Berlaku Hingga <strong>{{ isDate(voucher.voucher_data.end_date) }}</strong></div>
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="input-group-prepend">
+                            <div class="px-0">
+                                <input type="checkbox" v-model="agree" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                        <div class="text-note text-color-blue ml-3">
+                            Saya sudah membaca 
+                            <router-link to="/ketentuan-penggunaan" class="text-color-blue font-weight-bolder">
+                                Syarat dan Ketentuan 
+                            </router-link> 
+                            dan menyetujuinya
                         </div>
                     </div>
-                    <div class="text-note text-color-blue ml-3">
-                        Saya sudah membaca 
-                        <router-link to="/ketentuan-penggunaan" class="text-color-blue font-weight-bolder">
-                            Syarat dan Ketentuan 
-                        </router-link> 
-                        dan menyetujuinya
+                </div>
+                <div v-else>
+                    <div class="d-flex text-color-blue justify-content-between">
+                        <div class="text-description font-weight-bolder d-flex align-items-center w-50">
+                            Rp. {{ number(voucher.voucher_data.price) }}
+                        </div>
                     </div>
+                    <div class="text-description text-color-blue my-3">Berlaku Hingga <strong>{{ isDate(voucher.voucher_data.end_date) }}</strong></div>
                 </div>
             </div>
         </div>
@@ -101,6 +111,7 @@ import moment from "moment"
 export default {
     data() {
         return {
+            isMembership:'',
             showDetail:true,
             showRedeem:false,
             setPhone:'',
@@ -110,6 +121,9 @@ export default {
     },
     props: {
         voucher:Object
+    },
+    mounted(){
+        this.isMembership = this.$route.query.m
     },
     methods: {
         number(value){

@@ -31,6 +31,7 @@ import VoucherDetail from "@/page/Shop/VoucherDetail"
 import Pesanan from "@/page/Shop/Pesanan"
 import Membership from "@/page/Shop/Membership"
 import MembershipForm from "@/page/Shop/MembershipForm"
+import TransactionSuccess from "@/page/Shop/TransactionSuccess"
 
 import PaymentMethod from "@/page/Shop/PaymentMethod"
 import TransactionManual from "@/page/Shop/TransactionManual"
@@ -214,6 +215,14 @@ var router = new VueRouter({
         path: "/transaction-manual",
         name: "TransactionManual",
         component: TransactionManual,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/transaction-success",
+        name: "TransactionSuccess",
+        component: TransactionSuccess,
         meta:{
             requiresAuth:true
         }

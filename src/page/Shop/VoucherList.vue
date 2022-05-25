@@ -47,7 +47,7 @@ export default {
         
         this.items = dataVoucher !== undefined && dataVoucher.is_ok == true ? dataVoucher.data.docs : [];
         this.totalPage = dataVoucher !== undefined && dataVoucher.is_ok == true ? dataVoucher.data.total : [];
-        console.log(this.items)
+        
         this.loading = false;
     },
     mounted() {
