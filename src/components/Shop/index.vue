@@ -4,36 +4,23 @@
         <div class="home-menu">
             <div class="row">
                 <div class="col-6 mb-3" v-for="item in items" :key="item._id">
-                    <router-link :to="'/product-list?i=' + item._id" class="home-menu-list">
+                    <router-link :to="'/product-list?i=' + item._id" class="home-menu-list" v-if="item.name !== 'Membership'">
                         <div class="home-menu-icon">
-                            <!-- <img src="@/assets/img/icon/laboratorium.png" alt="laboratorium"> -->
-                            <img src="@/assets/img/low_res_500.jpg" v-lazy="baseURL + item.image" alt="klinik">
+                            <img src="@/assets/img/icon/rs.png" v-lazy="baseURL + item.image" alt="klinik">
+                        </div>
+                        <div class="home-menu-text text-color-grey mt-3">
+                            {{item.name}}
+                        </div>
+                    </router-link>
+                    <router-link :to="'/membership?i=' + item._id +'&t=membership'" class="home-menu-list" v-else>
+                        <div class="home-menu-icon">
+                            <img src="@/assets/img/icon/rs.png" v-lazy="baseURL + item.image" alt="klinik">
                         </div>
                         <div class="home-menu-text text-color-grey mt-3">
                             {{item.name}}
                         </div>
                     </router-link>
                 </div>
-                <!-- <div class="col-6 mb-3">
-                    <router-link to="/product-list" class="home-menu-list">
-                        <div class="home-menu-icon">
-                            <img src="@/assets/img/icon/laboratorium.png" alt="laboratorium">
-                        </div>
-                        <div class="home-menu-text text-color-grey mt-3">
-                            Laboratorium
-                        </div>
-                    </router-link>
-                </div>
-                <div class="col-6 mb-3">
-                    <router-link to="/product-list" class="home-menu-list">
-                        <div class="home-menu-icon">
-                            <img src="@/assets/img/icon/membership.png" alt="rekanan">
-                        </div>
-                        <div class="home-menu-text text-color-grey mt-3">
-                            Membership
-                        </div>
-                    </router-link>
-                </div> -->
             </div>
         </div>
         <div class="row mt-4">

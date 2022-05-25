@@ -203,6 +203,8 @@ export default {
             loadingSubmit:false,
             showAllPayment:true,
             vaPayment:false,
+            type:'',
+            dataMembership:{},
             items:[],
             cart:{},
             manualId:'',
@@ -220,6 +222,13 @@ export default {
             total_trans:'',
             expired_date:'',
             response_message:''
+        }
+    },
+    mounted(){
+        this.type = this.$route.query.type
+        let localMembership = JSON.parse(localStorage.getItem("membership"));
+        if (localMembership != null) {
+            this.dataMembership = localMembership[0];
         }
     },
     methods: {
@@ -273,34 +282,29 @@ export default {
             } 
             
             // PURCHASE VOUCHER
-            let payment = {
-                quantity : this.cart.quantity,
-                voucher : this.cart.id,
-                payment_method : this.payment_code
-            }
-            this.responseApi = await this.$apiController('post', `/shop/voucher/purchase`, payment) 
-        
-            if(this.responseApi.is_ok){
-                if(this.payment_method !== 'shopee' && this.isVa == false){
-                    let pendingPayment = []
-                    let setPendingPayment = {
-                        id:this.cart.id,
-                        payment_method:this.payment_method,
-                        quantity:this.cart.quantity,
-                        voucher_id:this.responseApi.data.transaction_id,
-                        transaction_no: this.responseApi.data.transaction_no,
-                        invoice_no: this.responseApi.data.invoice_no,
-                        transaction_fee: this.responseApi.data.transaction_fee,
-                        grant_total: this.responseApi.data.grant_total,
-                        expired_date: this.responseApi.data.expired_date,
-                        created_at: this.responseApi.data.created_at,
-                        ewallet_dekstop_web_checkout_url:'',
-                        ewallet_qr_checkout_string:''
-                    }
-                    pendingPayment.push(setPendingPayment)
-                    localStorage.setItem("pending_payment", JSON.stringify(pendingPayment))
+            if(this.type == 'membership'){
+                let payment = {
+                    quantity : this.cart.quantity,
+                    voucher : this.cart.id,
+                    payment_method : this.payment_code,
+                    member_nik: this.dataMembership.member_nik,
+                    member_name: this.dataMembership.member_name,
+                    member_birthdate: this.dataMembership.member_birthdate,
+                    member_birthplace: this.dataMembership.member_birthplace,
+                    member_email: this.dataMembership.member_email,
+                    member_address: this.dataMembership.member_address,
+                    member_benefit_receiver: this.dataMembership.member_benefit_receiver
                 }
-
+                this.responseApi = await this.$apiController('post', `/membership/purchase`, payment) 
+            } else {
+                let payment = {
+                    quantity : this.cart.quantity,
+                    voucher : this.cart.id,
+                    payment_method : this.payment_code
+                }
+                this.responseApi = await this.$apiController('post', `/shop/voucher/purchase`, payment) 
+            }
+            if(this.responseApi.is_ok){
                 if(this.payment_method == 'manual'){
                     this.paymentManual()
                 } else if (this.payment_method == 'ovo'){
@@ -313,7 +317,6 @@ export default {
                     this.response_message = this.responseApi.message
                     this.$bvModal.show('failed')
                 }
-                
             }else {
                 this.loadingSubmit = false
                 this.response_message = this.responseApi.message
@@ -341,7 +344,7 @@ export default {
 
             if(response.is_ok){
                 this.loadingSubmit = false
-                this.$router.push('/pending-payment')
+                this.$router.push({ path: '/pending-payment', query: { i: `${response.data.ewallet_id}` , type:'ewallet'}})
             }else {
                 this.loadingSubmit = false
                 this.response_message = response.message
@@ -357,26 +360,8 @@ export default {
             var response = await this.$apiController('post', `/payment_gateway/charge_ewallet`, paymentShopee)
 
             if(response.is_ok){
-                let pendingPayment = []
-                let setPendingPayment = {
-                    id:this.cart.id,
-                    payment_method:this.payment_method,
-                    quantity:this.cart.quantity,
-                    voucher_id:this.responseApi.data.transaction_id,
-                    transaction_no: this.responseApi.data.transaction_no,
-                    invoice_no: this.responseApi.data.invoice_no,
-                    transaction_fee: this.responseApi.data.transaction_fee,
-                    grant_total: this.responseApi.data.grant_total,
-                    expired_date: this.responseApi.data.expired_date,
-                    created_at: this.responseApi.data.created_at,
-                    ewallet_dekstop_web_checkout_url:response.data.ewallet_dekstop_web_checkout_url,
-                    ewallet_qr_checkout_string:response.data.ewallet_qr_checkout_string
-                }
-                pendingPayment.push(setPendingPayment)
-                localStorage.setItem("pending_payment", JSON.stringify(pendingPayment))
-
                 this.loadingSubmit = false
-                this.$router.push('/pending-payment')
+                this.$router.push({ path: '/pending-payment', query: { i: `${response.data.ewallet_id}` , type:'ewallet'}})
             }else {
                 this.loadingSubmit = false
                 this.response_message = response.message
@@ -406,33 +391,8 @@ export default {
             var response = await this.$apiController('post', `/payment_gateway/create_va`, paymentVA)
 
             if(response.is_ok){
-                let pendingPayment = []
-                let setPendingPayment = {
-                    id:this.cart.id,
-                    payment_method:this.payment_method,
-                    quantity:this.cart.quantity,
-                    voucher_id:this.responseApi.data.transaction_id,
-                    transaction_no: this.responseApi.data.transaction_no,
-                    invoice_no: this.responseApi.data.invoice_no,
-                    transaction_fee: this.responseApi.data.transaction_fee,
-                    grant_total: this.responseApi.data.grant_total,
-                    expired_date: this.responseApi.data.expired_date,
-                    created_at: this.responseApi.data.created_at,
-                    ewallet_dekstop_web_checkout_url:'',
-                    ewallet_qr_checkout_string:'',
-                    is_va:1,
-                    virtual_account_id: response.data.virtual_account_id,
-                    virtual_account_transaction_id: response.data.virtual_account_transaction_id,
-                    virtual_account_name: response.data.virtual_account_name,
-                    virtual_account_number: response.data.virtual_account_number,
-                    virtual_account_amount_pay: response.data.virtual_account_amount_pay,
-                    virtual_account_expired_at: response.data.virtual_account_expired_at
-                }
-                pendingPayment.push(setPendingPayment)
-                localStorage.setItem("pending_payment", JSON.stringify(pendingPayment))
-
                 this.loadingSubmit = false
-                this.$router.push('/pending-payment')
+                this.$router.push({ path: '/pending-payment', query: { i: `${response.data._id}` , type:'va'}})
             }else {
                 this.loadingSubmit = false
                 this.response_message = response.message

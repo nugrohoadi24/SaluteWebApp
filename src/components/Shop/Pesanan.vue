@@ -12,7 +12,7 @@
                             <div class="text-description font-weight-bold">{{ item.voucher_data.packet_days }} Hari</div>
                         </div>
                         <div class="text-center">
-                            <img src="@/assets/img/icon/rs.png" alt="" class="w-50">
+                            <img src="@/assets/img/icon/rs.png" v-lazy="baseURL + item.provider_type.asset" :name="item.provider_type.name" class="w-50">
                         </div>
                     </div>
                     <div class="col-9 p-2">
@@ -33,9 +33,22 @@
                             <div class="text-subheading mb-2">{{ item.payment_type }}</div>
                             <div class="text-description">{{ item.status }}</div>
                         </div>
-                        <div class="text-color-blue text-center">
+
+                        <div class="text-color-blue text-center" v-if="item.payment_type == 'E-WALLET (OVO)' || item.payment_type == 'E-WALLET (SHOPEEPAY)'">
                             <div class="text-description">{{ item.transaction_no }}</div>
-                            <button class="btn btn-blue mt-2 p-2">Lanjutkan</button>
+                            <button class="btn btn-blue mt-2 p-2" @click="detailEWallet(item.e_wallet)">Lanjutkan</button>
+                        </div>
+                        <div class="text-color-blue text-center" v-else-if="item.virtual_account !== undefined">
+                            <div class="text-description">{{ item.transaction_no }}</div>
+                            <button class="btn btn-blue mt-2 p-2" @click="detailVA(item.virtual_account)">Lanjutkan</button>
+                        </div>
+                        <div class="text-color-blue text-center" v-else-if="item.payment_type == 'TRANSFER MANUAL'">
+                            <div class="text-description">{{ item.transaction_no }}</div>
+                            <router-link
+                                :to="'/transaction-manual?i=' + item._id"
+                                class="btn btn-blue mt-2 p-2">
+                                Lanjutkan
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -57,7 +70,8 @@ export default {
     data() {
         return {
             keyword:'',
-            currentPage:1
+            currentPage:1,
+            baseURL:process.env.VUE_APP_ICON_URL,
         }
     },
     props: {
@@ -78,6 +92,19 @@ export default {
         pageClick(nowPage) {
             this.$eventBus.$emit("pagination", nowPage);
         },
+        async detailEWallet(value){
+            var response = await this.$apiController('get', `/payment_gateway/ewallet_detail/${value}`)
+            if(response.is_ok){
+                this.$router.push({ path: '/pending-payment', query: { i:`${response.data[0]._id}` , type:'ewallet'} })
+            }
+
+        },
+        async detailVA(value){
+            var response = await this.$apiController('get', `/payment_gateway/va_detail/${value}`)
+            if(response.is_ok){
+                this.$router.push({ path: '/pending-payment', query: { i: `${response.data[0]._id}` , type:'va'} })
+            }
+        }
     }
 }
 </script>

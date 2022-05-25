@@ -29,6 +29,8 @@ import ProductDetail from "@/page/Shop/ProductDetail"
 import VoucherList from "@/page/Shop/VoucherList"
 import VoucherDetail from "@/page/Shop/VoucherDetail"
 import Pesanan from "@/page/Shop/Pesanan"
+import Membership from "@/page/Shop/Membership"
+import MembershipForm from "@/page/Shop/MembershipForm"
 
 import PaymentMethod from "@/page/Shop/PaymentMethod"
 import TransactionManual from "@/page/Shop/TransactionManual"
@@ -180,6 +182,22 @@ var router = new VueRouter({
         path: "/pesanan",
         name: "Pesanan",
         component: Pesanan,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/membership",
+        name: "Membership",
+        component: Membership,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: "/membership-form",
+        name: "MembershipForm",
+        component: MembershipForm,
         meta:{
             requiresAuth:true
         }

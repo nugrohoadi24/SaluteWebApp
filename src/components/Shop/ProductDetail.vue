@@ -17,16 +17,6 @@
                     <label>Berlaku {{ product.limit_days }} hari setelah pembelian</label>
                 </div>
             </div>
-            <!-- <div class="card-header shop-bg-green card-rounded-top">
-                <div class="text-subheading">
-                    RATA FULL
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="text-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                </div>
-            </div> -->
             <div class="mt-3">
                 <div class="rekanan-list">
                     <div class="text-subheading text-color-blue text-uppercase">{{ product.provider_data.name }}</div>
@@ -92,6 +82,7 @@ import moment from "moment"
 export default {
     data() {
         return {
+            type:'',
             setPhone:'',
             jumlahQty:1,
             validateQty:false,
@@ -102,6 +93,9 @@ export default {
     },
     props: {
         product:Object
+    },
+    mounted(){
+        this.type = this.$route.query.t?this.$route.query.t:''
     },
     methods: {
         number(value){
@@ -163,7 +157,11 @@ export default {
             if(this.isValid()){
                 this.carts.push(cart);
                 localStorage.setItem("cart", JSON.stringify(this.carts))
-                this.$router.push("/payment-method");
+                if(this.type !== 'membership'){
+                    this.$router.push("/payment-method");
+                } else {
+                    this.$router.push("/membership-form");
+                }
             }
         }
     }

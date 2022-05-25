@@ -7,8 +7,10 @@
                 <div class="horizontal-line-bold my-3"></div>
                 <div class="text-description">Transfer Manual</div>
                 <br>
-                <div class="text-description">Ke BCA <strong>01293810293</strong></div>
-                <div class="text-description">atas nama <strong>PT. Salvus Prima Perkasa</strong></div>
+                <div class="text-description">No. Rekening <strong>3983318858</strong></div>
+                <div class="text-description">Nama Pemilik <strong>PT. Salvus Prima Perkasa</strong></div>
+                <div class="text-description">Bank <strong>Bank Central Asia (BCA)</strong></div>
+                <div class="text-description">Cabang <strong>KCP Mandala Raya</strong></div>
                 <div class="text-description my-3">
                     <vue-dropzone :useCustomSlot=true style="min-height:150px" 
                         class="card border-dashed text-color-blue mt-2" 
@@ -72,6 +74,7 @@
 export default {
     data(){
         return {
+            trans_id:'',
             pendingPayment:{},
             failed_msg:'',
             tfManualOption: {
@@ -90,17 +93,13 @@ export default {
             },
         }
     },
+    mounted(){
+        this.trans_id = this.$route.query.i
+    },
     methods: {
         async verifyTransfer(){
-            let localPayment = JSON.parse(localStorage.getItem("pending_payment"));
-            if (localPayment != null) {
-                this.pendingPayment = localPayment[0];
-            } else {
-                this.$router.push('/shop');
-            }
-
             let payment = {
-                transaction_id : this.pendingPayment.voucher_id,
+                transaction_id : this.trans_id,
             }
             
             var response = await this.$apiController('post', `/shop/notify_paid`, payment) 

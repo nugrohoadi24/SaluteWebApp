@@ -12,7 +12,7 @@
                             <div class="text-description font-weight-bold">{{ item.voucher_data.packet_days }} Hari</div>
                         </div>
                         <div class="text-center">
-                            <img src="@/assets/img/icon/rs.png" alt="" class="w-50">
+                            <img src="@/assets/img/icon/rs.png" v-lazy="baseURL + item.provider_type.asset" :name="item.provider_type.name" class="w-50">
                         </div>
                     </div>
                     <div class="col-9 text-color-blue p-2 shop-right-blue shop-bg-baby-blue">
@@ -41,7 +41,8 @@ export default {
     data() {
         return {
             keyword:'',
-            currentPage:1
+            currentPage:1,
+            baseURL:process.env.VUE_APP_ICON_URL,
         }
     },
     props: {
